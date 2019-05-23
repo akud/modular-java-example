@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+    id 'com.zyxist.chainsaw' version '0.3.1' apply false
+}
+
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'com.zyxist.chainsaw'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testCompile 'junit:junit:4.12'
+    }
+}
+

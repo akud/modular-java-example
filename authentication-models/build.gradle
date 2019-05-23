@@ -1,0 +1,8 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.9'
+    implementation group: 'com.google.guava', name: 'guava', version: '23.5-jre'
+}
