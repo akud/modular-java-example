@@ -22,4 +22,18 @@ public class AuthenticationRequestTest {
         );
     }
 
+    @Test
+    public void testSerialize() throws IOException {
+        AuthenticationRequest request = new AuthenticationRequest("testUserName", "testPassword");
+        String expectedJson = "{" +
+            "\"userName\":\"testUserName\"," +
+            "\"password\":\"testPassword\"" +
+        "}";
+        String serialized = new ObjectMapper().writeValueAsString(request);
+        assertEquals(
+            expectedJson,
+            serialized
+        );
+    }
+
 }
