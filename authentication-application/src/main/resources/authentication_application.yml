@@ -1,0 +1,9 @@
+cacheSpec: maximumSize=10000, expireAfterAccess=1h
+
+logging:
+  level: INFO
+  loggers:
+    com.alexkudlick.authentication: DEBUG
+    io.dropwizard: INFO
+  appenders:
+    - type: console
