@@ -8,6 +8,7 @@ dependencies {
 
 javaModule.hacks {
     opens('com.alexkudlick.authentication.application', 'com.alexkudlick.authentication.application.tokens', 'junit')
+    opens('com.alexkudlick.authentication.application', 'com.alexkudlick.authentication.application.tokens', 'org.mockito')
 
     opens('com.alexkudlick.authentication.application', 'com.alexkudlick.authentication.application.web', 'junit')
 }
