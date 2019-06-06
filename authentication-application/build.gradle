@@ -5,3 +5,9 @@ dependencies {
       exclude group: 'com.google.code.findbugs', module: 'jsr305'
     }
 }
+
+javaModule.hacks {
+    opens('com.alexkudlick.authentication.application', 'com.alexkudlick.authentication.application.tokens', 'junit')
+
+    opens('com.alexkudlick.authentication.application', 'com.alexkudlick.authentication.application.web', 'junit')
+}
