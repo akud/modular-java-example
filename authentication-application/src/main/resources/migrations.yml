@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1547851554156-1
+      author: alex (generated)
+      modifySql:
+        dbms: mysql
+        append:
+          applyToRollback: false
+          value: ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_unicode_ci
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: next_val
+                  type: BIGINT(19)
+            tableName: hibernate_sequence
+  - changeSet:
+      id: 1547851554156-2
+      author: alex (generated)
+      modifySql:
+        dbms: mysql
+        append:
+          applyToRollback: false
+          value: ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_unicode_ci
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                      primaryKey: true
+                  name: id
+                  type: BIGINT(19)
+              - column:
+                  constraints:
+                      nullable: false
+                  name: username
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                      nullable: false
+                  name: encrypted_password
+                  type: VARCHAR(1024)
+            tableName: users
+  - changeSet:
+      id: 1547851554156-3
+      author: alex (generated)
+      changes:
+        - addUniqueConstraint:
+            columnNames: username
+            constraintName: username_unique_constraint
+            tableName: users
