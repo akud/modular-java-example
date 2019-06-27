@@ -4,6 +4,7 @@ module com.alexkudlick.authentication.application {
     requires jackson.annotations;
     requires com.google.common;
     requires javax.ws.rs.api;
+    requires java.naming;
 
     requires java.sql;
 
