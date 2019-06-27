@@ -1,7 +1,7 @@
 package com.alexkudlick.authentication.application;
 
 import com.alexkudlick.authentication.application.config.AuthenticationConfiguration;
-import com.alexkudlick.authentication.application.dao.UserDAO;
+import com.alexkudlick.authentication.application.config.ServiceRegistry;
 import com.alexkudlick.authentication.application.entities.UserEntity;
 import com.alexkudlick.authentication.application.web.AuthenticationTokenResource;
 import com.alexkudlick.authentication.application.web.UserResource;
@@ -44,15 +44,11 @@ public class AuthenticationApplication extends Application<AuthenticationConfigu
 
     @Override
     public void run(AuthenticationConfiguration configuration, Environment environment) throws Exception {
-        UserDAO userDAO = createDAO(configuration);
+        ServiceRegistry serviceRegistry = configuration.createServiceRegistry(HIBERNATE_BUNDLE.getSessionFactory());
         environment.jersey().register(
-            new AuthenticationTokenResource(configuration.createAuthenticationTokenManager())
+            new AuthenticationTokenResource(serviceRegistry.getTokenManager())
         );
-        environment.jersey().register(new UserResource(userDAO));
-    }
-
-    private UserDAO createDAO(AuthenticationConfiguration configuration) {
-        return new UserDAO(HIBERNATE_BUNDLE.getSessionFactory(), configuration.createPasswordEncoder());
+        environment.jersey().register(new UserResource(serviceRegistry.getUserDAO()));
     }
 
     @Override

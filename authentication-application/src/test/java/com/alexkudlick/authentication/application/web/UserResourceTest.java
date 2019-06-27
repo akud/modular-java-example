@@ -1,7 +1,7 @@
 package com.alexkudlick.authentication.application.web;
 
 import com.alexkudlick.authentication.application.dao.UserDAO;
-import com.alexkudlick.authentication.application.models.UserRequest;
+import com.alexkudlick.authentication.models.AuthenticationRequest;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +22,7 @@ public class UserResourceTest {
 
     @Test
     public void testExecute() throws Exception {
-        resource.createUser(new UserRequest("foo", "bar"));
+        resource.createUser(new AuthenticationRequest("foo", "bar"));
 
         verify(dao).createUser("foo", "bar");
         verifyNoMoreInteractions(dao);

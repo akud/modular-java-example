@@ -1,10 +1,13 @@
 package com.alexkudlick.authentication.application.web;
 
 
+import com.alexkudlick.authentication.models.AuthenticationRequest;
 import com.alexkudlick.authentication.application.tokens.AuthenticationTokenManager;
+import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -21,6 +24,14 @@ public class AuthenticationTokenResource {
 
     public AuthenticationTokenResource(AuthenticationTokenManager manager) {
         this.manager = Objects.requireNonNull(manager);
+    }
+
+    @POST
+    @UnitOfWork(readOnly = true)
+    public Response createToken(AuthenticationRequest request) {
+        return manager.login(request.getUserName(), request.getPassword())
+            .map(token -> Response.ok().entity(token).build())
+            .orElseGet(() -> Response.status(Response.Status.BAD_REQUEST).build());
     }
 
     @GET

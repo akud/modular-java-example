@@ -6,6 +6,10 @@ import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.persistence.NoResultException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.Objects;
 
 public class UserDAO extends AbstractDAO<UserEntity> {
@@ -25,5 +29,20 @@ public class UserDAO extends AbstractDAO<UserEntity> {
             passwordEncoder.encode(password),
             this::persist
         );
+    }
+
+    public boolean isValidLogin(String userName, String password) {
+        CriteriaBuilder criteriaBuilder = currentSession().getCriteriaBuilder();
+        CriteriaQuery<UserEntity> query = criteriaBuilder.createQuery(UserEntity.class);
+        Root<UserEntity> root = query.from(UserEntity.class);
+
+        try {
+            UserEntity entity = currentSession()
+                .createQuery(query.where(criteriaBuilder.equal(root.get("userName"), userName)))
+                .getSingleResult();
+            return passwordEncoder.matches(password, entity.getEncryptedPassword());
+        } catch (NoResultException e) {
+            return false;
+        }
     }
 }

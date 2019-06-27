@@ -2,10 +2,13 @@ package com.alexkudlick.authentication.application.web;
 
 
 import com.alexkudlick.authentication.application.tokens.AuthenticationTokenManager;
+import com.alexkudlick.authentication.models.AuthenticationRequest;
+import com.alexkudlick.authentication.models.AuthenticationToken;
 import org.junit.Before;
 import org.junit.Test;
 
 import javax.ws.rs.core.Response;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -46,6 +49,36 @@ public class AuthenticationTokenResourceTest {
         assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatus());
 
         verify(manager).isValid("lky4hq32kk");
+        verifyNoMoreInteractions(manager);
+    }
+
+    @Test
+    public void testCreateTokenWithValidLogin() {
+        AuthenticationRequest request = new AuthenticationRequest("asdf", "hijk");
+        AuthenticationToken token = new AuthenticationToken("q2tkjh2kj3rh");
+
+        when(manager.login(anyString(), anyString())).thenReturn(Optional.of(token));
+
+        Response response = resource.createToken(request);
+
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        assertEquals(token, response.getEntity());
+
+        verify(manager).login(request.getUserName(), request.getPassword());
+        verifyNoMoreInteractions(manager);
+    }
+
+    @Test
+    public void testCreateTokenWithInvalidLogin() {
+        AuthenticationRequest request = new AuthenticationRequest("asdf", "hijk");
+
+        when(manager.login(anyString(), anyString())).thenReturn(Optional.empty());
+
+        Response response = resource.createToken(request);
+
+        assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+
+        verify(manager).login(request.getUserName(), request.getPassword());
         verifyNoMoreInteractions(manager);
     }
 }

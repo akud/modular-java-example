@@ -22,7 +22,6 @@ module com.alexkudlick.authentication.application {
     requires dropwizard.configuration;
 
     opens com.alexkudlick.authentication.application.config to com.fasterxml.jackson.databind;
-    opens com.alexkudlick.authentication.application.models to com.fasterxml.jackson.databind;
     opens com.alexkudlick.authentication.application.web to jersey.server;
     opens com.alexkudlick.authentication.application.entities to hibernate.core, javassist;
 }
