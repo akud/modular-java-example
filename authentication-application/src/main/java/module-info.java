@@ -9,4 +9,6 @@ module com.alexkudlick.authentication.application {
 
     requires dropwizard.core;
     requires dropwizard.configuration;
+
+    opens com.alexkudlick.authentication.application.config to com.fasterxml.jackson.databind;
 }
