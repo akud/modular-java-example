@@ -11,4 +11,5 @@ module com.alexkudlick.authentication.application {
     requires dropwizard.configuration;
 
     opens com.alexkudlick.authentication.application.config to com.fasterxml.jackson.databind;
+    opens com.alexkudlick.authentication.application.web to jersey.server;
 }
