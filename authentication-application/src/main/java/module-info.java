@@ -7,6 +7,7 @@ module com.alexkudlick.authentication.application {
     requires java.naming;
 
     requires java.sql;
+    requires java.xml.bind;
 
     requires hibernate.jpa;
     requires dropwizard.hibernate;
