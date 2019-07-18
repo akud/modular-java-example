@@ -4,6 +4,7 @@ import com.alexkudlick.authentication.application.config.AuthenticationConfigura
 import com.alexkudlick.authentication.application.config.ServiceRegistry;
 import com.alexkudlick.authentication.application.entities.UserEntity;
 import com.alexkudlick.authentication.application.web.AuthenticationTokenResource;
+import com.alexkudlick.authentication.application.web.ConstraintViolationExceptionMapper;
 import com.alexkudlick.authentication.application.web.UserResource;
 import io.dropwizard.Application;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
@@ -49,6 +50,7 @@ public class AuthenticationApplication extends Application<AuthenticationConfigu
             new AuthenticationTokenResource(serviceRegistry.getTokenManager())
         );
         environment.jersey().register(new UserResource(serviceRegistry.getUserDAO()));
+        environment.jersey().register(new ConstraintViolationExceptionMapper());
     }
 
     @Override
