@@ -2,6 +2,8 @@ package com.alexkudlick.authentication.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Preconditions;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.Objects;
 
@@ -10,6 +12,8 @@ public class AuthenticationToken {
     public static final int MIN_LENGTH = 8;
 
     @JsonProperty("token")
+    @NotEmpty
+    @Length(min = MIN_LENGTH)
     private String token;
 
     private AuthenticationToken() {

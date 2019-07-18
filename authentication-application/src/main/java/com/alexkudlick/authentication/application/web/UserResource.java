@@ -4,6 +4,8 @@ import com.alexkudlick.authentication.application.dao.UserDAO;
 import com.alexkudlick.authentication.models.AuthenticationRequest;
 import io.dropwizard.hibernate.UnitOfWork;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -25,7 +27,7 @@ public class UserResource {
 
     @POST
     @UnitOfWork
-    public Response createUser(AuthenticationRequest request) {
+    public Response createUser(@Valid @NotNull AuthenticationRequest request) {
         userDAO.createUser(request.getUserName(), request.getPassword());
         return Response.status(Response.Status.CREATED).build();
     }

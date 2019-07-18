@@ -4,7 +4,10 @@ package com.alexkudlick.authentication.application.web;
 import com.alexkudlick.authentication.models.AuthenticationRequest;
 import com.alexkudlick.authentication.application.tokens.AuthenticationTokenManager;
 import io.dropwizard.hibernate.UnitOfWork;
+import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -28,7 +31,7 @@ public class AuthenticationTokenResource {
 
     @POST
     @UnitOfWork(readOnly = true)
-    public Response createToken(AuthenticationRequest request) {
+    public Response createToken(@Valid @NotNull AuthenticationRequest request) {
         return manager.login(request.getUserName(), request.getPassword())
             .map(token -> Response.ok().entity(token).build())
             .orElseGet(() -> Response.status(Response.Status.BAD_REQUEST).build());
@@ -36,7 +39,7 @@ public class AuthenticationTokenResource {
 
     @GET
     @Path("{token}/")
-    public Response checkTokenValidity(@PathParam("token") String token) {
+    public Response checkTokenValidity(@NotEmpty @PathParam("token") String token) {
         if (manager.isValid(token)) {
             return Response.ok().build();
         } else {

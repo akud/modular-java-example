@@ -2,15 +2,22 @@ package com.alexkudlick.authentication.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Preconditions;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class AuthenticationRequest {
 
     @JsonProperty("userName")
+    @NotNull
+    @Length(min = 4)
     private String userName;
 
     @JsonProperty("password")
+    @NotNull
+    @Length(min = 8)
     private String password;
 
     private AuthenticationRequest() {

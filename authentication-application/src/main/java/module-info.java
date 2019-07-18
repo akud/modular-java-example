@@ -18,6 +18,9 @@ module com.alexkudlick.authentication.application {
     requires dropwizard.migrations;
     requires com.fasterxml.jackson.databind;
 
+    requires validation.api;
+    requires hibernate.validator;
+
     requires dropwizard.core;
     requires dropwizard.configuration;
 
