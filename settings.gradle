@@ -2,3 +2,4 @@ rootProject.name = 'modular-java-example'
 
 include 'authentication-models'
 include 'authentication-application'
+include 'authentication-client'

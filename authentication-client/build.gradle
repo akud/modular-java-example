@@ -1,0 +1,30 @@
+plugins {
+    id 'java-library'
+    id 'com.github.johnrengelman.shadow' version '4.0.3'
+}
+
+dependencies {
+    implementation project(':authentication-models')
+
+    implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.9'
+    implementation(group: 'com.google.guava', name: 'guava', version: '23.5-jre') {
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    }
+
+    api group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.9'
+}
+
+shadowJar {
+    baseName = 'authentication-client'
+    classifier = null
+    version = null
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.alexkudlick.authentication.client.AuthenticationClientApplication'
+    }
+}
+
+build.finalizedBy(shadowJar)
