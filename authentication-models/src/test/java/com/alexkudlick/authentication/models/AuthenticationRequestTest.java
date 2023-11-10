@@ -35,8 +35,7 @@ public class AuthenticationRequestTest {
                 "\"userName\":\"testUserName\"" +
                 "}";
         String serialized = new ObjectMapper().writeValueAsString(request);
-        Boolean assertionVal=expectedJson2.equals(serialized) || expectedJson1.equals(serialized);
-        assertTrue(assertionVal);
+        assertTrue(expectedJson2.equals(serialized) || expectedJson1.equals(serialized));
     }
 
 }
