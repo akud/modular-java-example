@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
-@JsonPropertyOrder({userName, password})
+@JsonPropertyOrder({"userName", "password"})
 public class AuthenticationRequest {
 
     @JsonProperty("userName")
