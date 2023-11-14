@@ -1,6 +1,7 @@
 package com.alexkudlick.authentication.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.google.common.base.Preconditions;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -8,6 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
+@JsonPropertyOrder({"userName", "password"})
 public class AuthenticationRequest {
 
     @JsonProperty("userName")
